@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>iPhone 13 Pro !!! 1元秒杀！！！
+</h1>
+<form id="msform" action="" enctype="application/x-www-form-urlencoded">
+    <input type="hidden" id="prodId" name="prodId" value="0101">
+    <input type="button" id="miaosha_btn" name="seckill_btn" value="秒杀点我"/>
+</form>
+</body>
+<script type="text/javascript" th:src="@{js/jquery-3.6.0.js}"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#miaosha_btn").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/doSeckill",
+                data: $("#msform").serialize(),
+                dataType: "json",
+                success: function (data) {
+                    if (data.code === '200') {
+                        alert(data.result);
+                    } else {
+                        alert(data.message);
+                        $("#miaosha_btn").attr("disabled", true);
+                    }
+                }, error: function () {
+
+                }
+            });
+        })
+    })
+</script>
+</html>
